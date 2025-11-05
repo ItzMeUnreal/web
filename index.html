@@ -23,6 +23,11 @@
       min-height: 100vh;
     }
 
+    body.light {
+      background-color: #f2f4f8;
+      color: #1a1a1a;
+    }
+    
     /* --- HEADER --- */
     header {
       background-color: #0b1016;
@@ -46,6 +51,12 @@
     header a:hover {
       text-decoration: underline;
     }
+    
+    body.light header {
+      background-color: #e2e6eb;
+      border-bottom-color: #c5c9ce;
+    }
+    
      #theme-toggle {
       position: absolute;
       right: 15px;
@@ -167,6 +178,7 @@
       toggleBtn.textContent = body.classList.contains('light') ? '🌙' : '☀️';
 </body>
 </html>
+
 
 
 
