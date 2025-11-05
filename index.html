@@ -46,6 +46,24 @@
     header a:hover {
       text-decoration: underline;
     }
+     #theme-toggle {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      background: none;
+      border: 1px solid #658cc9;
+      border-radius: 6px;
+      color: #658cc9;
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #theme-toggle:hover {
+      background-color: #658cc9;
+      color: #fff;
+    }
 
     /* --- MAIN CONTENT --- */
     main {
@@ -112,6 +130,7 @@
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="aog.html">Apocalypse of Glitches</a>
+    <button id="theme-toggle">☀️</button>
   </header>
 
   <main>
@@ -139,8 +158,16 @@
       </a>
     </div>
   </main>
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('light');
+      toggleBtn.textContent = body.classList.contains('light') ? '🌙' : '☀️';
 </body>
 </html>
+
 
 
 
