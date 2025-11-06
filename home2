@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - unreal!</title>
+  <link rel="icon" type="image/png" href="https://itzmeunreal.github.io/web/icon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a2332 0%, #2a3f52 100%);
+      color: #e8f1f2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(147, 204, 188, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(101, 140, 201, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body.light {
+      background: linear-gradient(135deg, #f0f4f8 0%, #d9e8ef 100%);
+      color: #1a2332;
+    }
+
+    body.light::before {
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(98, 126, 102, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(56, 85, 80, 0.08) 0%, transparent 50%);
+    }
+
+    header {
+      background: rgba(36, 51, 66, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(147, 204, 188, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    body.light header {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom-color: rgba(25, 43, 39, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    header a {
+      color: #93ccbc;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    header a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #93ccbc, #6dad87);
+      transition: width 0.3s ease;
+    }
+
+    header a:hover {
+      color: #6dad87;
+      transform: translateY(-2px);
+    }
+
+    header a:hover::after {
+      width: 100%;
+    }
+
+    body.light header a {
+      color: #2a3f52;
+    }
+
+    body.light header a:hover {
+      color: #385550;
+    }
+
+    #theme-toggle {
+      position: absolute;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, #4f6e60 0%, #385550 100%);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(79, 110, 96, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+    }
+
+    #theme-toggle:hover {
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 6px 20px rgba(79, 110, 96, 0.4);
+    }
+     
+    body.light #theme-toggle {
+      background: linear-gradient(135deg, #2a3f52 0%, #1a2332 100%);
+      box-shadow: 0 4px 15px rgba(42, 63, 82, 0.3);
+    }
+
+    body.light #theme-toggle:hover {
+      box-shadow: 0 6px 20px rgba(42, 63, 82, 0.4);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-section {
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .avatar-container {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .avatar-placeholder {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, #658cc9 0%, #93ccbc 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 8px 30px rgba(101, 140, 201, 0.3);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .avatar-placeholder:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 12px 40px rgba(101, 140, 201, 0.5);
+    }
+
+    .avatar-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .subtitle-link {
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .subtitle-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .subtitle-link:hover .subtitle {
+      color: #6dad87;
+    }
+
+    body.light .subtitle-link:hover .subtitle {
+      color: #385550;
+    }
+
+    .name-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #93ccbc 0%, #6dad87 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 1px;
+    }
+
+    body.light .name-title {
+      background: linear-gradient(135deg, #2a3f52 0%, #385550 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #a8d5d1;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    body.light .subtitle {
+      color: #4a5f72;
+    }
+
+    .description {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #b8d8d3;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    body.light .description {
+      color: #5a6f82;
+    }
+
+    .contact-link {
+      display: inline-block;
+      color: #e3deb2;
+      text-decoration: none;
+      padding: 0.8rem 2rem;
+      background: rgba(227, 222, 178, 0.1);
+      border: 2px solid #e3deb2;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-link:hover {
+      background: #e3deb2;
+      color: #1a2332;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(227, 222, 178, 0.3);
+    }
+
+    body.light .contact-link {
+      color: #2a3f52;
+      background: rgba(42, 63, 82, 0.1);
+      border-color: #2a3f52;
+    }
+
+    body.light .contact-link:hover {
+      background: #2a3f52;
+      color: #f0f4f8;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50px;
+      color: #e3deb2;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+      font-weight: 500;
+    }
+
+    .social-link:hover {
+      background: rgba(227, 222, 178, 0.15);
+      border-color: #e3deb2;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(227, 222, 178, 0.2);
+    }
+
+    body.light .social-link {
+      background: rgba(42, 63, 82, 0.08);
+      color: #2a3f52;
+    }
+
+    body.light .social-link:hover {
+      background: rgba(42, 63, 82, 0.15);
+      border-color: #2a3f52;
+    }
+
+    .icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      transition: transform 0.3s ease;
+    }
+
+    .social-link:hover .icon {
+      transform: scale(1.1);
+    }
+
+    footer {
+      padding: 1.5rem;
+      background: rgba(36, 51, 66, 0.6);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(147, 204, 188, 0.2);
+      color: #93ccbc;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    body.light footer {
+      background: rgba(255, 255, 255, 0.7);
+      border-top-color: rgba(25, 43, 39, 0.1);
+      color: #4a5f72;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+
+      nav {
+        gap: 1rem;
+      }
+
+      #theme-toggle {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin-top: 1rem;
+      }
+
+      #theme-toggle:hover {
+        transform: scale(1.05);
+      }
+
+      .name-title {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .avatar-placeholder {
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+      }
+
+      main {
+        padding: 2rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="aog.html">Apocalypse of Glitches</a>
+      <button id="theme-toggle">
+        <span class="theme-icon">☀️</span>
+        <span class="theme-text">Light</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero-section">
+      <div class="avatar-container">
+        <!-- OPTION 1: Use your own image - just replace the src with your image URL -->
+        <!-- <a href="https://www.youtube.com/@prod.unreal" target="_blank" class="avatar-placeholder">
+          <img src="https://media.discordapp.net/attachments/1357746695789613240/1436088222382948492/pfp.png?ex=690e54e1&is=690d0361&hm=4d194506a4718d656d65577a2306e497691062d8b4b503541d630c8f22c39bd1&=&format=webp&quality=lossless" alt="Alex Bennett">
+        </a> -->
+        
+        <!-- OPTION 2: Keep the letter avatar (remove this if using image above) -->
+        <a href="https://www.youtube.com/@prod.unreal" target="_blank" class="avatar-placeholder">U</a>
+      </div>
+      
+      <h1 class="name-title">Alex Bennett</h1>
+      <a href="https://www.youtube.com/@prod.unreal" target="_blank" class="subtitle-link">
+        <p class="subtitle">@prod.unreal</p>
+      </a>
+      <p class="description">
+        Indie game developer & music producer crafting unique digital experiences
+        and immersive soundscapes.
+      </p>
+
+      <a href="mailto:info.unreal@proton.me" class="contact-link">Get in Touch</a>
+
+      <div class="socials">
+        <a href="https://www.youtube.com/@prod.unreal" target="_blank" class="social-link">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M23.498 6.186a2.974 2.974 0 0 0-2.1-2.104C19.426 3.5 12 3.5 12 3.5s-7.426 0-9.398.582A2.974 2.974 0 0 0 .502 6.186C0 8.166 0 12 0 12s0 3.834.502 5.814a2.974 2.974 0 0 0 2.1 2.104C4.574 20.5 12 20.5 12 20.5s7.426 0 9.398-.582a2.974 2.974 0 0 0 2.1-2.104C24 15.834 24 12 24 12s0-3.834-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <span>YouTube</span>
+        </a>
+        <a href="https://discord.gg/XQVqU5mA5k" target="_blank" class="social-link">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/></svg>
+          <span>Discord</span>
+        </a>
+        <a href="https://x.com/itzmeunreal" target="_blank" class="social-link">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H15.66l-5.216-6.817L4.481 21.75H1.17l7.735-8.847L.731 2.25h6.695l4.713 6.231L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg>
+          <span>Twitter</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 unreal! - All rights reserved
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    const themeIcon = toggleBtn.querySelector('.theme-icon');
+    const themeText = toggleBtn.querySelector('.theme-text');
+
+    toggleBtn.addEventListener('click', function() {
+      body.classList.toggle('light');
+      if (body.classList.contains('light')) {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark';
+      } else {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Light';
+      }
+    });
+  </script>
+</body>
+</html>
