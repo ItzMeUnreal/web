@@ -283,6 +283,24 @@
       transform: scale(1.1);
     }
 
+    footer {
+      padding: 1.5rem;
+      background: rgba(36, 51, 66, 0.6);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(147, 204, 188, 0.2);
+      color: #93ccbc;
+      font-size: 0.9rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    body.light footer {
+      background: rgba(255, 255, 255, 0.7);
+      border-top-color: rgba(25, 43, 39, 0.1);
+      color: #4a5f72;
+    }
+
     @media (max-width: 768px) {
       header {
         padding: 1rem;
@@ -360,6 +378,10 @@
       </div>
     </div>
   </main>
+
+  <footer>
+    © 2025 unreal! - All rights reserved
+  </footer>
 
   <script>
     const toggleBtn = document.getElementById('theme-toggle');
